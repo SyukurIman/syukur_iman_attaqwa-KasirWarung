@@ -1,0 +1,92 @@
+START
+
+PROCEDURE loginAdmin()
+ 	READ AND WRITE “username” with string
+ 	READ AND WRITE “password” with string
+ 	IF “username” same with “admin”
+ 		IF “password” same with “admin”
+ 			DISPLAY “Login Succes”
+ 			CONTINUE
+ 		ELSE
+ 			DISPLAY “Password incorrect”
+ 			END
+ 	ELSE
+ 		DISPLAY “Username or Password incorrect”
+ 		END
+END PROCEDURE
+ 
+ FUNCTION ChooseMenu (Customers, FoodMenu)
+ 	READ AND WRITE “DataFoodChoose” with Array 2 Dimension
+  	READ AND WRITE “chooseMenu” with string
+ 	READ AND WRITE “TotalPrice” with number
+ 	READ AND WRITE “TotalChoose” with number
+ 	
+ 	SRORE “Customers” with TRUE
+ 	STORE “TotalPrice” with 0
+ 	STORE “TotalChoose” with 0
+
+ 	WHILE “Customers” TRUE
+  	DO
+ 		DISPLAY “FoodMenu”
+ 		SET “chooseMenu” with “customers”
+ 		FOR  “i” from 1 in “FoodMenu”
+ 			IF “chooseMenu” same with “FoodMenu”[“i”][“NameFood”]
+ 				STORE “TotalPrice” with “TotalPrice” plus “FoodMenu”[“i”][“PriceFood”]
+ 				STORE “DataFoodChoose”[“ TotalChoose + 1”] with FoodMenu[“i”][“NameFood”, “PriceFood”]
+ 		END FOR
+ 		DISPLAY “Is there anything else?”
+ 		SET “Customers”
+ 		IF “Customers” FALSE
+  			PRINT “DataFoodChhose” AND “TotalPrice”
+ 			RETURN “TotalPrice” 
+END FUNCTION
+ 
+PROCEDURE Payment(Price, typePayment)
+ 	IF “typePayment” same “Cashi”
+ 		READ AND WRITE “Money” with number
+ 		READ AND WRITE “moneyChanges” with number
+ 
+ 		STORE “moneyChanges” with 0
+ 		SET “Money”
+
+ 		IF “Money” more than or equal “Price”
+ 			STORE “moneyChanges” with money subtract price
+ 		PRINT “moneyChanges”
+ 	ELSE
+ 		READ AND WRITE “CodePayment” with number
+ 		READ AND WRITE “ConfirmationPayment” with boolean
+ 		STROKE “CodePayment” with unique code
+ 		
+ 		STROKE “ConfirmationPayment” with TRUE automatically when paying
+ 		IF “ConfirmationPayment” TRUE
+ 			PRINT “Success Payment”	
+END PROCEDURE
+
+CALL loginAdmin()
+READ AND WRITE “Customers” with boolean
+READ AND WRITE “Exit” with boolean
+READ AND WRITE “FoodMenu” with array 2 dimension
+
+STORE “Customers” with FALSE
+STORE “Exit” with FALSE
+STORE “FoodMenu” with [“TotalFood”][“NameFood”, “PriceFood”]
+ 
+WHILE “Exit” FALSE
+DO
+ 	READ AND WRITE “ChooseApps” with string
+ 	DISPLAY “Welcome to Restaurant Syukur”
+ 	DISPLAY “ [x] Choose Your Favorite Menu”
+ 	DISPLAY “ [x] Exit”
+ 	SET “ChooseApps”
+ 	IF “ChooseApps” choose the first option
+ 		STROKE “Custommers” with TRUE
+ 		READ AND WRITE “Price” With number
+ 		READ AND WRITE “typePayment” with string 
+
+ 		STORE “Price” with ChooseMenu(Customers, FoodMenu)
+		DISPLAY “Choose Your Payment (TUNAI OR NON TUNAI)”
+ 		SET “typePayment”
+ 		CALL Payment(Price, typePayment)
+ 	ELSE
+ 	 	STORE “Exit” with TRUE
+END
