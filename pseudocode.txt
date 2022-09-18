@@ -1,0 +1,17 @@
+START
+
+PROCEDURE loginAdmin()
+ 	READ AND WRITE “username” with string
+ 	READ AND WRITE “password” with string
+ 	IF “username” same with “admin”
+ 		IF “password” same with “admin”
+ 			DISPLAY “Login Succes”
+ 			CONTINUE
+ 		ELSE
+ 			DISPLAY “Password incorrect”
+ 			END
+ 	ELSE
+ 		DISPLAY “Username or Password incorrect”
+ 		END
+END PROCEDURE
+ 
